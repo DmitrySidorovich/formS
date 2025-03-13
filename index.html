@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Отправка формы в Telegram</title>
+</head>
+
+<body>
+  <h1>Форма для отправки сообщения в Telegram</h1>
+  <form id="myForm">
+    <label for="name">Имя:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="message">Сообщение:</label>
+    <textarea id="message" name="message" required></textarea><br><br>
+
+    <button type="button" onclick="sendMessage()">Отправить</button>
+  </form>
+
+  <script>
+    function sendMessage() {
+      // Получаем значения из полей формы
+      const name = document.getElementById('name').value;
+      const message = document.getElementById('message').value;
+
+      // Замените на свои реальные данные
+      const botToken = 'YOUR_TELEGRAM_BOT_TOKEN8091530404:AAF87vW55gvdSyF7xHDJF5zkllAFIimF-2w';
+      const chatId = '134677183';
+
+      // Текст, который будет отправлен боту
+      const text = `Имя: ${encodeURIComponent(name)}%0AСообщение: ${encodeURIComponent(message)}`;
+
+      // Формируем URL для запроса к Telegram Bot API
+      const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${text}`;
+
+      // Отправляем запрос через fetch
+      fetch(url)
+        .then(response => {
+          if (response.ok) {
+            alert('Сообщение успешно отправлено в Telegram!');
+          } else {
+            alert('Произошла ошибка при отправке сообщения.');
+          }
+        })
+        .catch(error => {
+          alert('Ошибка при отправке: ' + error);
+        });
+    }
+  </script>
+</body>
+
+</html>
